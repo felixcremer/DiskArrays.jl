@@ -1,0 +1,16 @@
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.10.0"
+manifest_format = "2.0"
+project_hash = "1baa5d219425cbe5456db90413a5a2ad7cc0ca57"
+
+[[deps.OffsetArrays]]
+git-tree-sha1 = "6a731f2b5c03157418a20c12195eb4b74c8f8621"
+uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
+version = "1.13.0"
+
+    [deps.OffsetArrays.extensions]
+    OffsetArraysAdaptExt = "Adapt"
+
+    [deps.OffsetArrays.weakdeps]
+    Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
