@@ -31,7 +31,7 @@ DiskArrays.eachchunk(a::AccessCountDiskArray) = DiskArrays.GridChunks(a, a.chunk
 function DiskArrays.readblock!(a::AccessCountDiskArray, aout, i::AbstractUnitRange...)
     ndims(a) == length(i) || error("Number of indices is not correct")
     all(r -> isa(r, AbstractUnitRange), i) || error("Not all indices are unit ranges")
-    # println("reading from indices ", join(string.(i)," "))
+    @debug "reading from indices " * join(string.(i)," ")
     a.getindex_count[] += 1
     return aout .= a.parent[i...]
 end
@@ -74,7 +74,10 @@ Base.size(a::ChunkedDiskArray) = size(a.parent)
 
 DiskArrays.haschunks(::ChunkedDiskArray) = DiskArrays.Chunked()
 DiskArrays.eachchunk(a::ChunkedDiskArray) = DiskArrays.GridChunks(a, a.chunksize)
-DiskArrays.readblock!(a::ChunkedDiskArray, aout, i::AbstractUnitRange...) = aout .= a.parent[i...]
+function DiskArrays.readblock!(a::ChunkedDiskArray, aout, i::AbstractUnitRange...)
+    @debug "reading from indices ", join(string.(i)," ")
+    aout .= a.parent[i...]
+end
 DiskArrays.writeblock!(a::ChunkedDiskArray, v, i::AbstractUnitRange...) = view(a.parent, i...) .= v
 
 """
@@ -92,6 +95,7 @@ DiskArrays.haschunks(::UnchunkedDiskArray) = DiskArrays.Unchunked()
 function DiskArrays.readblock!(a::UnchunkedDiskArray, aout, i::AbstractUnitRange...)
     ndims(a) == length(i) || error("Number of indices is not correct")
     all(r -> isa(r, AbstractUnitRange), i) || error("Not all indices are unit ranges")
+    @debug "reading from indices ", join(string.(i)," ")
     return aout .= a.p[i...]
 end
 
