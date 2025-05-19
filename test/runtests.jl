@@ -977,6 +977,8 @@ end
 end
 
 struct TestArray{T,N} <: AbstractArray{T,N} end
+struct TestArray2{T,N} <: AbstractArray{T,N} end
+
 
 @testset "All macros apply" begin
     DiskArrays.@implement_getindex TestArray
